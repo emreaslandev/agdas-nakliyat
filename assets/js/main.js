@@ -34,16 +34,16 @@
 
 				},
 
-			// Scroll zones.
-				scrollZones: {
+			// // Scroll zones.
+			// 	scrollZones: {
 
-					// If true, enables scrolling via scroll zones on the left/right edges of the scren.
-						enabled: true,
+			// 		// If true, enables scrolling via scroll zones on the left/right edges of the scren.
+			// 			enabled: true,
 
-					// Sets the speed at which the page scrolls when a scroll zone is active (higher = faster scroll, lower = slower scroll).
-						speed: 15
+			// 		// Sets the speed at which the page scrolls when a scroll zone is active (higher = faster scroll, lower = slower scroll).
+			// 			speed: 15
 
-				}
+			// 	}
 
 		};
 
@@ -64,7 +64,7 @@
 				// Disable all scroll-assist features.
 					settings.keyboardShortcuts.enabled = false;
 					settings.scrollWheel.enabled = false;
-					settings.scrollZones.enabled = false;
+					// settings.scrollZones.enabled = false;
 
 				// Re-enable overflow on main.
 					$main.css('overflow-x', 'auto');
@@ -310,81 +310,81 @@
 
 			})();
 
-	// Scroll zones.
-		if (settings.scrollZones.enabled)
-			(function() {
+	// // Scroll zones.
+	// 	if (settings.scrollZones.enabled)
+	// 		(function() {
 
-				var	$left = $('<div class="scrollZone left"></div>'),
-					$right = $('<div class="scrollZone right"></div>'),
-					$zones = $left.add($right),
-					paused = false,
-					intervalId = null,
-					direction,
-					activate = function(d) {
+	// 			var	$left = $('<div class="scrollZone left"></div>'),
+	// 				$right = $('<div class="scrollZone right"></div>'),
+	// 				$zones = $left.add($right),
+	// 				paused = false,
+	// 				intervalId = null,
+	// 				direction,
+	// 				activate = function(d) {
 
-						// Disable on <=small.
-							if (breakpoints.active('<=small'))
-								return;
+	// 					// Disable on <=small.
+	// 						if (breakpoints.active('<=small'))
+	// 							return;
 
-						// Paused? Bail.
-							if (paused)
-								return;
+	// 					// Paused? Bail.
+	// 						if (paused)
+	// 							return;
 
-						// Stop link scroll.
-							$main.stop();
+	// 					// Stop link scroll.
+	// 						$main.stop();
 
-						// Set direction.
-							direction = d;
+	// 					// Set direction.
+	// 						direction = d;
 
-						// Initialize interval.
-							clearInterval(intervalId);
+	// 					// Initialize interval.
+	// 						clearInterval(intervalId);
 
-							intervalId = setInterval(function() {
-								$main.scrollLeft($main.scrollLeft() + (settings.scrollZones.speed * direction));
-							}, 25);
+	// 						intervalId = setInterval(function() {
+	// 							$main.scrollLeft($main.scrollLeft() + (settings.scrollZones.speed * direction));
+	// 						}, 25);
 
-					},
-					deactivate = function() {
+	// 				},
+	// 				deactivate = function() {
 
-						// Unpause.
-							paused = false;
+	// 					// Unpause.
+	// 						paused = false;
 
-						// Clear interval.
-							clearInterval(intervalId);
+	// 					// Clear interval.
+	// 						clearInterval(intervalId);
 
-					};
+	// 				};
 
-				$zones
-					.appendTo($wrapper)
-					.on('mouseleave mousedown', function(event) {
-						deactivate();
-					});
+	// 			$zones
+	// 				.appendTo($wrapper)
+	// 				.on('mouseleave mousedown', function(event) {
+	// 					deactivate();
+	// 				});
 
-				$left
-					.css('left', '0')
-					.on('mouseenter', function(event) {
-						activate(-1);
-					});
+	// 			$left
+	// 				.css('left', '0')
+	// 				.on('mouseenter', function(event) {
+	// 					activate(-1);
+	// 				});
 
-				$right
-					.css('right', '0')
-					.on('mouseenter', function(event) {
-						activate(1);
-					});
+	// 			$right
+	// 				.css('right', '0')
+	// 				.on('mouseenter', function(event) {
+	// 					activate(1);
+	// 				});
 
-				$body
-					.on('---pauseScrollZone', function(event) {
+	// 			$body
+	// 				.on('---pauseScrollZone', function(event) {
 
-						// Pause.
-							paused = true;
+	// 					// Pause.
+	// 						paused = true;
 
-						// Unpause after delay.
-							setTimeout(function() {
-								paused = false;
-							}, 500);
+	// 					// Unpause after delay.
+	// 						setTimeout(function() {
+	// 							paused = false;
+	// 						}, 500);
 
-					});
+	// 				});
 
-			})();
+	// 		})();
 
 })(jQuery);
